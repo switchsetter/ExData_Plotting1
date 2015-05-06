@@ -3,25 +3,28 @@
 ##loads household_power_consumption.txt
 ##household_power_consumption.txt must be in same directory as this script
 ##generates plot4.png
-
-library("lubridate")
+##Tested on Windows 7, R Studion Version 0.98.1091
 
 data<-read.table("household_power_consumption.txt",header = TRUE,sep = ";",na.strings = "?")
 ##add new column to data with R DateTime
 data$DateTime<- strptime( paste ( data[,1] ,  data[,2]),"%d/%m/%Y %H:%M:%S")
 
 ##find  2007-02-01 and 2007-02-02
-date_data<-data[ data[,'Date']=='1/2/2007' | x[,'Date']=='2/2/2007',]
+date_data<-data[ data[,'Date']=='1/2/2007' | data[,'Date']=='2/2/2007',]
 
+
+png("plot4.png",width=480,height=480)
 
 ##set row columns
 par(mfrow=c(2,2))
 ##reset margins
 par(mar=c(2,4,2,2))
 
+
+
 ##Global_active_power plot
 plot_dataA<-date_data[,c('DateTime','Global_active_power')]
-plot(plot_dataA, type="l", col="black")
+plot(plot_dataA, type="l", col="black" , ylab="Global Active Power",xlab="")
 
 ##Voltage plot
 plot_dataB<-date_data[,c('DateTime','Voltage')]
@@ -40,8 +43,8 @@ legend("topright",c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),col=c("b
 
 ##Global_reactive_power plot
 plot_dataC<-date_data[,c('DateTime','Global_reactive_power')]
-plot(plot_dataC, type="l", col="black")
+plot(plot_dataC, type="l", col="black", ylab="Global Reactive Power",xlab="")
 
-dev.copy(png, file = "plot4.png",width=480,height=480)
+
 dev.off()
 

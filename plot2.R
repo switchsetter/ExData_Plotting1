@@ -3,9 +3,7 @@
 ##loads household_power_consumption.txt
 ##household_power_consumption.txt must be in same directory as this script
 ##generates plot2.png
-
-library("lubridate")
-
+##Tested on Windows 7, R Studion Version 0.98.1091
 
 
 data<-read.table("household_power_consumption.txt",header = TRUE,sep = ";",na.strings = "?")
@@ -19,8 +17,9 @@ date_data<-data[ data[,'Date']=='1/2/2007' | data[,'Date']=='2/2/2007',]
 
 plot_data<-date_data[,c('DateTime','Global_active_power')]
 
+png("plot2.png",width=480,height=480)
+
 par(mfrow=c(1,1))
 plot(plot_data, type="l", col="black", ylab="Global Active Power(kilowatts)",xlab="")
 
-dev.copy(png, file = "plot2.png",width=480,height=480)
 dev.off()
